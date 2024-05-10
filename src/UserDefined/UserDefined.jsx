@@ -1,3 +1,5 @@
+import React from "react";
+
 export default class UserAccount {
     constructor(userName) {
         this.userName = userName;
@@ -51,10 +53,17 @@ export default class UserAccount {
     }
 
     addTransaction(transaction) {
+        if (transaction.amount <= 0) {
+            throw new Error("Transaction amount must be greater than 0.");
+        }
         this.transactions.push(transaction);
     }
 
     addCard(card) {
+        // Validate card object
+        if (!card || typeof card !== "object" || !card.type || !card.cardBalance || !card.LastFourDigits) {
+            throw new Error("Invalid card object.");
+        }
         this.cards.push(card);
     }
 }
